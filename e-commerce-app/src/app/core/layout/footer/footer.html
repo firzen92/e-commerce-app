@@ -1,0 +1,25 @@
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand-col">
+      <a routerLink="/" class="footer__brand">Aurelia</a>
+      <p class="footer__tagline">Thoughtfully designed pieces for a calmer, more considered home.</p>
+    </div>
+
+    @for (group of linkGroups; track group.title) {
+      <div class="footer__group">
+        <h3 class="footer__group-title">{{ group.title }}</h3>
+        <ul class="footer__link-list">
+          @for (link of group.links; track link.path) {
+            <li>
+              <a class="footer__link" [routerLink]="link.path">{{ link.label }}</a>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {{ currentYear }} Aurelia. All rights reserved.</p>
+  </div>
+</footer>

@@ -1,0 +1,7 @@
+<span class="rating" [attr.aria-label]="'Rated ' + average() + ' out of 5'">
+  <mat-icon aria-hidden="true">star</mat-icon>
+  <span class="rating__average" aria-hidden="true">{{ average() }}</span>
+  @if (count(); as reviewCount) {
+    <span class="rating__count" aria-hidden="true">({{ reviewCount }})</span>
+  }
+</span>

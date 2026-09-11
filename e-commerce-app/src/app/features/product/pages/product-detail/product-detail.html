@@ -1,0 +1,98 @@
+@if (product(); as product) {
+  <div class="product-detail">
+    <nav class="product-detail__breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span class="product-detail__breadcrumb-current">{{ product.name }}</span>
+    </nav>
+
+    <div class="product-detail__layout">
+      <div class="product-detail__gallery">
+        <div class="product-detail__gallery-main">
+          @if (selectedImage(); as image) {
+            <img [src]="image.url" [alt]="image.alt" width="640" height="640" />
+          }
+        </div>
+
+        @if (product.images.length > 1) {
+          <div class="product-detail__thumbnails" role="tablist" aria-label="Product images">
+            @for (image of product.images; track image.url; let i = $index) {
+              <button
+                type="button"
+                role="tab"
+                class="product-detail__thumbnail"
+                [class.product-detail__thumbnail--active]="i === selectedImageIndex()"
+                [attr.aria-selected]="i === selectedImageIndex()"
+                [attr.aria-label]="'Show image ' + (i + 1) + ' of ' + product.images.length"
+                (click)="selectImage(i)"
+              >
+                <img [src]="image.url" [alt]="image.alt" width="96" height="96" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="product-detail__info">
+        @if (product.isNew) {
+          <span class="product-detail__badge">New</span>
+        } @else if (formattedCompareAtPrice()) {
+          <span class="product-detail__badge product-detail__badge--sale">Sale</span>
+        }
+
+        <h1 class="product-detail__name">{{ product.name }}</h1>
+
+        @if (product.rating; as rating) {
+          <app-rating [average]="rating.average" [count]="rating.count" />
+        }
+
+        <div class="product-detail__price">
+          <span class="product-detail__price-current">{{ formattedPrice() }}</span>
+          @if (formattedCompareAtPrice(); as compareAtPrice) {
+            <span class="product-detail__price-compare">{{ compareAtPrice }}</span>
+          }
+        </div>
+
+        <p class="product-detail__description">{{ product.description }}</p>
+
+        <p
+          class="product-detail__stock"
+          [class.product-detail__stock--out]="!product.inventory.inStock"
+        >
+          {{ product.inventory.inStock ? 'In stock' : 'Out of stock' }}
+        </p>
+
+        <button
+          type="button"
+          class="product-detail__add-to-cart"
+          [disabled]="!product.inventory.inStock"
+          (click)="onAddToCart()"
+        >
+          Add to Cart
+        </button>
+
+        @if (cartNoticeVisible()) {
+          <p class="product-detail__cart-notice" role="status">
+            Cart is coming soon — you won't be able to check out just yet.
+          </p>
+        }
+
+        @if (product.tags?.length) {
+          <ul class="product-detail__tags">
+            @for (tag of product.tags; track tag) {
+              <li>{{ tag }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+} @else if (product() === undefined) {
+  <div class="product-detail__status product-detail__status--empty">
+    <h1>Product not found</h1>
+    <p>We couldn't find the item you were looking for.</p>
+    <a routerLink="/">← Back to shopping</a>
+  </div>
+} @else {
+  <p class="product-detail__status" aria-live="polite">Loading product…</p>
+}

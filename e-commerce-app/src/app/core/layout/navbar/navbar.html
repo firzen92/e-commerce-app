@@ -1,0 +1,60 @@
+<header class="navbar">
+  <div class="navbar__inner">
+    <a routerLink="/" class="navbar__brand" aria-label="Aurelia home">Aurelia</a>
+
+    <nav class="navbar__links" aria-label="Primary">
+      @for (link of navLinks; track link.path) {
+        <a
+          class="navbar__link"
+          [routerLink]="link.path"
+          routerLinkActive="navbar__link--active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="navbar__actions">
+      <button type="button" class="navbar__icon-button" aria-label="Search products">
+        <mat-icon aria-hidden="true">search</mat-icon>
+      </button>
+      <button type="button" class="navbar__icon-button" aria-label="View wishlist">
+        <mat-icon aria-hidden="true">favorite_border</mat-icon>
+      </button>
+      <button type="button" class="navbar__icon-button" aria-label="View shopping cart">
+        <mat-icon aria-hidden="true">shopping_bag</mat-icon>
+      </button>
+      <button type="button" class="navbar__icon-button" aria-label="Account">
+        <mat-icon aria-hidden="true">person_outline</mat-icon>
+      </button>
+
+      <button
+        type="button"
+        class="navbar__menu-toggle"
+        [attr.aria-expanded]="isMobileMenuOpen()"
+        aria-controls="mobile-nav"
+        aria-label="Toggle menu"
+        (click)="toggleMobileMenu()"
+      >
+        <mat-icon aria-hidden="true">{{ isMobileMenuOpen() ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  @if (isMobileMenuOpen()) {
+    <nav id="mobile-nav" class="navbar__mobile-nav" aria-label="Mobile">
+      @for (link of navLinks; track link.path) {
+        <a
+          class="navbar__mobile-link"
+          [routerLink]="link.path"
+          routerLinkActive="navbar__mobile-link--active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          (click)="closeMobileMenu()"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+  }
+</header>

@@ -1,0 +1,24 @@
+<section class="categories" aria-labelledby="categories-heading">
+  <div class="categories__header">
+    <p class="categories__eyebrow">Explore</p>
+    <h2 id="categories-heading" class="categories__title">Shop by Category</h2>
+  </div>
+
+  <div class="categories__grid">
+    @for (category of categories(); track category.id) {
+      <a class="category-card" [routerLink]="['/category', category.slug]">
+        <div class="category-card__media">
+          <img
+            class="category-card__image"
+            [src]="category.imageUrl"
+            [alt]="category.name"
+            loading="lazy"
+            width="800"
+            height="600"
+          />
+        </div>
+        <span class="category-card__name">{{ category.name }}</span>
+      </a>
+    }
+  </div>
+</section>

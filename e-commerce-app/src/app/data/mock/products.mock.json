@@ -1,0 +1,208 @@
+[
+  {
+    "id": "prod-1",
+    "slug": "aria-lounge-chair",
+    "name": "Aria Lounge Chair",
+    "description": "A sculptural lounge chair with a solid oak frame and bouclé upholstery, designed for effortless comfort.",
+    "price": { "amount": 649, "currency": "USD" },
+    "compareAtPrice": { "amount": 799, "currency": "USD" },
+    "categoryId": "cat-1",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=1200&q=80", "alt": "Aria Lounge Chair in a sunlit living room" }
+    ],
+    "rating": { "average": 4.8, "count": 214 },
+    "inventory": { "inStock": true, "quantity": 18 },
+    "tags": ["bestseller", "living-room"],
+    "isFeatured": true,
+    "isNew": false,
+    "createdAt": "2025-11-02T00:00:00.000Z"
+  },
+  {
+    "id": "prod-2",
+    "slug": "linden-oak-dining-table",
+    "name": "Linden Oak Dining Table",
+    "description": "Handcrafted from solid white oak, this dining table brings warmth and clean lines to any gathering.",
+    "price": { "amount": 1249, "currency": "USD" },
+    "categoryId": "cat-1",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&q=80", "alt": "Linden Oak Dining Table set for dinner" }
+    ],
+    "rating": { "average": 4.9, "count": 132 },
+    "inventory": { "inStock": true, "quantity": 6 },
+    "tags": ["dining-room"],
+    "isFeatured": true,
+    "isNew": true,
+    "createdAt": "2026-06-14T00:00:00.000Z"
+  },
+  {
+    "id": "prod-3",
+    "slug": "nova-pendant-light",
+    "name": "Nova Pendant Light",
+    "description": "A hand-blown glass pendant that casts a warm, diffused glow — the centerpiece your kitchen island deserves.",
+    "price": { "amount": 289, "currency": "USD" },
+    "categoryId": "cat-2",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1200&q=80", "alt": "Nova Pendant Light hanging above a kitchen island" }
+    ],
+    "rating": { "average": 4.6, "count": 98 },
+    "inventory": { "inStock": true, "quantity": 32 },
+    "tags": ["lighting", "kitchen"],
+    "isFeatured": true,
+    "isNew": false,
+    "createdAt": "2025-09-20T00:00:00.000Z"
+  },
+  {
+    "id": "prod-4",
+    "slug": "haven-sofa",
+    "name": "Haven 3-Seater Sofa",
+    "description": "Deep seating, down-blend cushions, and a family-friendly performance fabric built for everyday life.",
+    "price": { "amount": 1899, "currency": "USD" },
+    "compareAtPrice": { "amount": 2199, "currency": "USD" },
+    "categoryId": "cat-1",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=1200&q=80", "alt": "Haven 3-Seater Sofa in a bright living room" }
+    ],
+    "rating": { "average": 4.7, "count": 356 },
+    "inventory": { "inStock": true, "quantity": 11 },
+    "tags": ["bestseller", "living-room"],
+    "isFeatured": true,
+    "isNew": false,
+    "createdAt": "2025-08-05T00:00:00.000Z"
+  },
+  {
+    "id": "prod-5",
+    "slug": "terra-table-lamp",
+    "name": "Terra Ceramic Table Lamp",
+    "description": "A matte stoneware base paired with a linen shade, bringing quiet texture to any side table.",
+    "price": { "amount": 129, "currency": "USD" },
+    "categoryId": "cat-2",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1543198126-cae9dee3fa9e?w=1200&q=80", "alt": "Terra Ceramic Table Lamp on a wooden nightstand" }
+    ],
+    "rating": { "average": 4.5, "count": 61 },
+    "inventory": { "inStock": true, "quantity": 45 },
+    "tags": ["bedroom"],
+    "isFeatured": false,
+    "isNew": true,
+    "createdAt": "2026-07-01T00:00:00.000Z"
+  },
+  {
+    "id": "prod-6",
+    "slug": "arc-floor-lamp",
+    "name": "Arc Floor Lamp",
+    "description": "A brushed brass arc lamp that curves gracefully over your favorite reading chair.",
+    "price": { "amount": 349, "currency": "USD" },
+    "categoryId": "cat-2",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1200&q=80", "alt": "Arc Floor Lamp beside a reading chair" }
+    ],
+    "rating": { "average": 4.4, "count": 44 },
+    "inventory": { "inStock": false },
+    "tags": ["living-room"],
+    "isFeatured": false,
+    "isNew": false,
+    "createdAt": "2025-05-11T00:00:00.000Z"
+  },
+  {
+    "id": "prod-7",
+    "slug": "moss-ceramic-vase-set",
+    "name": "Moss Ceramic Vase Set",
+    "description": "A trio of hand-thrown vases in varying heights, finished with a soft matte glaze.",
+    "price": { "amount": 89, "currency": "USD" },
+    "categoryId": "cat-3",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=1200&q=80", "alt": "Moss Ceramic Vase Set on a console table" }
+    ],
+    "rating": { "average": 4.9, "count": 187 },
+    "inventory": { "inStock": true, "quantity": 60 },
+    "tags": ["bestseller", "decor"],
+    "isFeatured": true,
+    "isNew": false,
+    "createdAt": "2025-10-18T00:00:00.000Z"
+  },
+  {
+    "id": "prod-8",
+    "slug": "wander-wall-mirror",
+    "name": "Wander Arched Wall Mirror",
+    "description": "An arched silhouette in a slim walnut frame, designed to open up any entryway or bedroom wall.",
+    "price": { "amount": 219, "currency": "USD" },
+    "categoryId": "cat-3",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80", "alt": "Wander Arched Wall Mirror in an entryway" }
+    ],
+    "rating": { "average": 4.7, "count": 73 },
+    "inventory": { "inStock": true, "quantity": 24 },
+    "tags": ["decor"],
+    "isFeatured": false,
+    "isNew": true,
+    "createdAt": "2026-06-30T00:00:00.000Z"
+  },
+  {
+    "id": "prod-9",
+    "slug": "drift-throw-blanket",
+    "name": "Drift Chunky Knit Throw",
+    "description": "An oversized chunky-knit throw in undyed merino wool — cozy texture for the couch or bed.",
+    "price": { "amount": 119, "currency": "USD" },
+    "categoryId": "cat-4",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1616627561950-9f746e330187?w=1200&q=80", "alt": "Drift Chunky Knit Throw folded on a sofa" }
+    ],
+    "rating": { "average": 4.6, "count": 152 },
+    "inventory": { "inStock": true, "quantity": 38 },
+    "tags": ["textiles", "bestseller"],
+    "isFeatured": true,
+    "isNew": false,
+    "createdAt": "2025-12-09T00:00:00.000Z"
+  },
+  {
+    "id": "prod-10",
+    "slug": "solace-linen-duvet",
+    "name": "Solace Stonewashed Linen Duvet",
+    "description": "Breathable European flax linen, stonewashed for a lived-in softness from the very first night.",
+    "price": { "amount": 259, "currency": "USD" },
+    "categoryId": "cat-4",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200&q=80", "alt": "Solace Stonewashed Linen Duvet on a made bed" }
+    ],
+    "rating": { "average": 4.8, "count": 96 },
+    "inventory": { "inStock": true, "quantity": 21 },
+    "tags": ["bedroom"],
+    "isFeatured": false,
+    "isNew": false,
+    "createdAt": "2025-07-22T00:00:00.000Z"
+  },
+  {
+    "id": "prod-11",
+    "slug": "kindle-taper-candle-trio",
+    "name": "Kindle Taper Candle Trio",
+    "description": "Unscented beeswax tapers in three earthy tones, hand-dipped in small batches.",
+    "price": { "amount": 42, "currency": "USD" },
+    "categoryId": "cat-3",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b9?w=1200&q=80", "alt": "Kindle Taper Candle Trio on a dining table" }
+    ],
+    "rating": { "average": 4.3, "count": 29 },
+    "inventory": { "inStock": true, "quantity": 80 },
+    "tags": ["decor"],
+    "isFeatured": false,
+    "isNew": true,
+    "createdAt": "2026-07-15T00:00:00.000Z"
+  },
+  {
+    "id": "prod-12",
+    "slug": "birch-bookshelf",
+    "name": "Birch Ladder Bookshelf",
+    "description": "A leaning ladder bookshelf in solid birch, offering five tiers of display and storage.",
+    "price": { "amount": 379, "currency": "USD" },
+    "categoryId": "cat-1",
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1594620302200-9a762244a156?w=1200&q=80", "alt": "Birch Ladder Bookshelf styled with books and plants" }
+    ],
+    "rating": { "average": 4.5, "count": 58 },
+    "inventory": { "inStock": true, "quantity": 14 },
+    "tags": ["living-room"],
+    "isFeatured": false,
+    "isNew": false,
+    "createdAt": "2025-04-03T00:00:00.000Z"
+  }
+]

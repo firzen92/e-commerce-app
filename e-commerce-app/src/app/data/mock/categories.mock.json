@@ -1,0 +1,34 @@
+[
+  {
+    "id": "cat-1",
+    "slug": "furniture",
+    "name": "Furniture",
+    "description": "Timeless pieces for modern living",
+    "imageUrl": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80",
+    "productCount": 4
+  },
+  {
+    "id": "cat-2",
+    "slug": "lighting",
+    "name": "Lighting",
+    "description": "Illuminate every space with intention",
+    "imageUrl": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80",
+    "productCount": 3
+  },
+  {
+    "id": "cat-3",
+    "slug": "decor",
+    "name": "Decor",
+    "description": "Small details, big impact",
+    "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
+    "productCount": 3
+  },
+  {
+    "id": "cat-4",
+    "slug": "textiles",
+    "name": "Textiles",
+    "description": "Soft finishes for every room",
+    "imageUrl": "https://images.unsplash.com/photo-1616627561950-9f746e330187?w=800&q=80",
+    "productCount": 2
+  }
+]

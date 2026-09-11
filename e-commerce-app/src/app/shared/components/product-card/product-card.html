@@ -1,0 +1,51 @@
+<article class="product-card" [class.product-card--out-of-stock]="isOutOfStock()">
+  <a
+    class="product-card__stretched-link"
+    [routerLink]="['/products', product().slug]"
+    [attr.aria-label]="product().name"
+  ></a>
+
+  <div class="product-card__media">
+    @if (product().isNew) {
+      <span class="product-card__badge">New</span>
+    } @else if (formattedCompareAtPrice()) {
+      <span class="product-card__badge product-card__badge--sale">Sale</span>
+    }
+
+    <img
+      class="product-card__image"
+      [src]="primaryImage().url"
+      [alt]="primaryImage().alt"
+      loading="lazy"
+      width="600"
+      height="600"
+    />
+
+    @if (isOutOfStock()) {
+      <div class="product-card__stock-overlay">Out of stock</div>
+    }
+
+    <button
+      type="button"
+      class="product-card__wishlist"
+      aria-label="Add {{ product().name }} to wishlist"
+    >
+      <mat-icon aria-hidden="true">favorite_border</mat-icon>
+    </button>
+  </div>
+
+  <div class="product-card__body">
+    @if (product().rating; as rating) {
+      <app-rating [average]="rating.average" [count]="rating.count" />
+    }
+
+    <h3 class="product-card__name">{{ product().name }}</h3>
+
+    <div class="product-card__price">
+      <span class="product-card__price-current">{{ formattedPrice() }}</span>
+      @if (formattedCompareAtPrice(); as compareAtPrice) {
+        <span class="product-card__price-compare">{{ compareAtPrice }}</span>
+      }
+    </div>
+  </div>
+</article>

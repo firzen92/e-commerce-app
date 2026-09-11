@@ -1,0 +1,145 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #eee;
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 24px;
+}
+
+.navbar__brand {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111;
+  text-decoration: none;
+}
+
+.navbar__links {
+  display: none;
+  align-items: center;
+  gap: 32px;
+
+  @media (min-width: 900px) {
+    display: flex;
+  }
+}
+
+.navbar__link {
+  position: relative;
+  color: #444;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: #111;
+  }
+
+  &--active {
+    color: #111;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+    }
+  }
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.navbar__icon-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  @media (min-width: 640px) {
+    display: flex;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: #f2f1ee;
+  }
+}
+
+.navbar__menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #333;
+  cursor: pointer;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: #f2f1ee;
+  }
+}
+
+.navbar__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 20px;
+  border-top: 1px solid #eee;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+}
+
+.navbar__mobile-link {
+  padding: 12px 0;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid #f2f1ee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &--active {
+    color: #111;
+    font-weight: 600;
+  }
+}
