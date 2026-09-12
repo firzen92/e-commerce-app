@@ -83,4 +83,21 @@ export class SupabaseProductsRepository implements ProductsRepository {
 
     return data;
   }
+
+  async findByIds(ids: string[]): Promise<Product[]> {
+    if (ids.length === 0) {
+      return [];
+    }
+
+    const { data, error } = await this.supabase
+      .from(TABLE_NAME)
+      .select('*')
+      .in('id', ids);
+
+    if (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+
+    return data;
+  }
 }

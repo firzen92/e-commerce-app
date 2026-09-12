@@ -17,4 +17,5 @@ export interface ProductsRepository {
   ): Promise<PaginatedResult<Product>>;
   findBySlug(slug: string): Promise<Product | null>;
   findById(id: string): Promise<Product | null>;
+  findByIds(ids: string[]): Promise<Product[]>;
 }

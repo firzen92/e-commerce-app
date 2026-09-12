@@ -32,9 +32,6 @@ class EnvironmentVariables {
   SUPABASE_SERVICE_ROLE_KEY!: string;
 
   @IsNotEmpty()
-  SUPABASE_JWT_SECRET!: string;
-
-  @IsNotEmpty()
   CORS_ORIGIN: string = 'http://localhost:4200';
 }
 

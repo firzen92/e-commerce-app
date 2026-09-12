@@ -13,8 +13,10 @@ import {
   CATEGORY_CATALOG,
   HttpCategoryCatalogService,
   HttpProductCatalogService,
+  HttpWishlistService,
   PRODUCT_CATALOG,
-  SupabaseAuthService
+  SupabaseAuthService,
+  WISHLIST_SERVICE
 } from './core/services';
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     { provide: PRODUCT_CATALOG, useClass: HttpProductCatalogService },
     { provide: CATEGORY_CATALOG, useClass: HttpCategoryCatalogService },
-    { provide: AUTH_SERVICE, useClass: SupabaseAuthService }
+    { provide: AUTH_SERVICE, useClass: SupabaseAuthService },
+    { provide: WISHLIST_SERVICE, useClass: HttpWishlistService }
   ]
 };

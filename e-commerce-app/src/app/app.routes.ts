@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,11 @@ export const routes: Routes = [
   {
     path: 'products',
     loadChildren: () => import('./features/product/product.routes').then((m) => m.PRODUCT_ROUTES)
+  },
+  {
+    path: 'wishlist',
+    canActivate: [authGuard],
+    loadChildren: () => import('./features/wishlist/wishlist.routes').then((m) => m.WISHLIST_ROUTES)
   },
   {
     path: '',

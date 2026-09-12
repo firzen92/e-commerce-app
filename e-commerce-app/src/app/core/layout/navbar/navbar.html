@@ -19,9 +19,9 @@
       <button type="button" class="navbar__icon-button" aria-label="Search products">
         <mat-icon aria-hidden="true">search</mat-icon>
       </button>
-      <button type="button" class="navbar__icon-button" aria-label="View wishlist">
-        <mat-icon aria-hidden="true">favorite_border</mat-icon>
-      </button>
+      <a routerLink="/wishlist" class="navbar__icon-button" aria-label="View wishlist">
+        <mat-icon aria-hidden="true">{{ wishlistCount() > 0 ? 'favorite' : 'favorite_border' }}</mat-icon>
+      </a>
       <button type="button" class="navbar__icon-button" aria-label="View shopping cart">
         <mat-icon aria-hidden="true">shopping_bag</mat-icon>
       </button>

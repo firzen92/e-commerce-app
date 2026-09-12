@@ -117,6 +117,15 @@
   mat-icon {
     color: #111;
   }
+
+  &--active {
+    opacity: 1;
+    transform: translateY(0);
+
+    mat-icon {
+      color: #b3261e;
+    }
+  }
 }
 
 .product-card__body {

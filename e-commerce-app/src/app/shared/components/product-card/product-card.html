@@ -28,9 +28,12 @@
     <button
       type="button"
       class="product-card__wishlist"
-      aria-label="Add {{ product().name }} to wishlist"
+      [class.product-card__wishlist--active]="isWishlisted()"
+      [attr.aria-pressed]="isWishlisted()"
+      [attr.aria-label]="(isWishlisted() ? 'Remove ' : 'Add ') + product().name + (isWishlisted() ? ' from wishlist' : ' to wishlist')"
+      (click)="toggleWishlist($event)"
     >
-      <mat-icon aria-hidden="true">favorite_border</mat-icon>
+      <mat-icon aria-hidden="true">{{ isWishlisted() ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
   </div>
 

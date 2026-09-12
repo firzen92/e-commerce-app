@@ -22,4 +22,8 @@ export class ProductsService {
   findBySlug(slug: string): Promise<Product | null> {
     return this.productsRepository.findBySlug(slug);
   }
+
+  findByIds(ids: string[]): Promise<Product[]> {
+    return this.productsRepository.findByIds(ids);
+  }
 }

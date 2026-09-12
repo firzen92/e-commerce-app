@@ -73,6 +73,23 @@ export interface Database {
         };
         Update: Partial<Database['public']['Tables']['products']['Insert']>;
       };
+      wishlist_items: {
+        Row: {
+          id: string;
+          user_id: string;
+          product_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          product_id: string;
+          created_at?: string;
+        };
+        Update: Partial<
+          Database['public']['Tables']['wishlist_items']['Insert']
+        >;
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

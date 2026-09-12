@@ -5,3 +5,5 @@ export * from './http-product-catalog.service';
 export * from './http-category-catalog.service';
 export * from './mock-auth.service';
 export * from './supabase-auth.service';
+export * from './mock-wishlist.service';
+export * from './http-wishlist.service';

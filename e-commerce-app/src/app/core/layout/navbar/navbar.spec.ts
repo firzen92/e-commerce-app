@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { routes } from '../../../app.routes';
-import { AUTH_SERVICE, MockAuthService } from '../../services';
+import { AUTH_SERVICE, MockAuthService, MockWishlistService, WISHLIST_SERVICE } from '../../services';
 import { Navbar } from './navbar';
 
 describe('Navbar', () => {
@@ -12,7 +12,11 @@ describe('Navbar', () => {
 
     await TestBed.configureTestingModule({
       imports: [Navbar],
-      providers: [provideRouter(routes), { provide: AUTH_SERVICE, useValue: authService }]
+      providers: [
+        provideRouter(routes),
+        { provide: AUTH_SERVICE, useValue: authService },
+        { provide: WISHLIST_SERVICE, useClass: MockWishlistService }
+      ]
     }).compileComponents();
   });
 

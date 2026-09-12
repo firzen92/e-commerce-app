@@ -7,7 +7,9 @@ import {
   MockAuthService,
   MockCategoryCatalogService,
   MockProductCatalogService,
-  PRODUCT_CATALOG
+  MockWishlistService,
+  PRODUCT_CATALOG,
+  WISHLIST_SERVICE
 } from './core/services';
 import { routes } from './app.routes';
 
@@ -19,7 +21,8 @@ describe('App', () => {
         provideRouter(routes),
         { provide: PRODUCT_CATALOG, useClass: MockProductCatalogService },
         { provide: CATEGORY_CATALOG, useClass: MockCategoryCatalogService },
-        { provide: AUTH_SERVICE, useClass: MockAuthService }
+        { provide: AUTH_SERVICE, useClass: MockAuthService },
+        { provide: WISHLIST_SERVICE, useClass: MockWishlistService }
       ]
     }).compileComponents();
   });

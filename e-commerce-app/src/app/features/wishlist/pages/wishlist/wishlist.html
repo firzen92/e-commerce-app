@@ -1,0 +1,20 @@
+<section class="wishlist-page" aria-labelledby="wishlist-heading">
+  <h1 id="wishlist-heading" class="wishlist-page__title">Your Wishlist</h1>
+
+  @if (items(); as wishlistItems) {
+    @if (wishlistItems.length > 0) {
+      <div class="wishlist-page__grid">
+        @for (item of wishlistItems; track item.product.id) {
+          <app-product-card [product]="item.product" />
+        }
+      </div>
+    } @else {
+      <p class="wishlist-page__empty">
+        Nothing here yet. Tap the heart on any product to save it for later.
+      </p>
+      <a routerLink="/shop" class="wishlist-page__cta">Browse products</a>
+    }
+  } @else {
+    <p class="wishlist-page__empty">Loading your wishlist…</p>
+  }
+</section>
