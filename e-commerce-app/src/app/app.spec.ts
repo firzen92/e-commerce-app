@@ -1,7 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
-import { CATEGORY_CATALOG, MockCategoryCatalogService, MockProductCatalogService, PRODUCT_CATALOG } from './core/services';
+import {
+  AUTH_SERVICE,
+  CATEGORY_CATALOG,
+  MockAuthService,
+  MockCategoryCatalogService,
+  MockProductCatalogService,
+  PRODUCT_CATALOG
+} from './core/services';
 import { routes } from './app.routes';
 
 describe('App', () => {
@@ -11,7 +18,8 @@ describe('App', () => {
       providers: [
         provideRouter(routes),
         { provide: PRODUCT_CATALOG, useClass: MockProductCatalogService },
-        { provide: CATEGORY_CATALOG, useClass: MockCategoryCatalogService }
+        { provide: CATEGORY_CATALOG, useClass: MockCategoryCatalogService },
+        { provide: AUTH_SERVICE, useClass: MockAuthService }
       ]
     }).compileComponents();
   });

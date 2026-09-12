@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { AUTH_SERVICE } from '../../services';
 
 interface NavLink {
   readonly label: string;
@@ -11,13 +13,17 @@ interface NavLink {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, MatIconModule, MatButtonModule],
+  imports: [RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Navbar {
+  private readonly authService = inject(AUTH_SERVICE);
+  private readonly router = inject(Router);
+
   protected readonly isMobileMenuOpen = signal(false);
+  protected readonly currentUser = this.authService.currentUser;
 
   protected readonly navLinks: readonly NavLink[] = [
     { label: 'Home', path: '/' },
@@ -32,5 +38,9 @@ export class Navbar {
 
   protected closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
+  }
+
+  protected signOut(): void {
+    this.authService.signOut().subscribe(() => void this.router.navigateByUrl('/'));
   }
 }
