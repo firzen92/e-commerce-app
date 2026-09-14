@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, si
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { Product } from '../../../../models';
 import { PRODUCT_CATALOG } from '../../../../core/services';
+import { CartService } from '../../../../state/cart.service';
 import { Rating } from '../../../../shared/components';
 import { formatMoney } from '../../../../shared/utils/currency.util';
 
@@ -16,6 +18,7 @@ import { formatMoney } from '../../../../shared/utils/currency.util';
 })
 export class ProductDetail {
   private readonly productCatalog = inject(PRODUCT_CATALOG);
+  private readonly cartService = inject(CartService);
 
   /** Bound from the `:slug` route param via withComponentInputBinding(). */
   readonly slug = input.required<string>();
@@ -29,6 +32,7 @@ export class ProductDetail {
 
   protected readonly selectedImageIndex = signal(0);
   protected readonly cartNoticeVisible = signal(false);
+  protected readonly quantity = signal(1);
 
   protected readonly formattedPrice = computed(() => {
     const product = this.product();
@@ -42,12 +46,18 @@ export class ProductDetail {
 
   protected readonly selectedImage = computed(() => this.product()?.images[this.selectedImageIndex()]);
 
+  protected readonly atMaxQuantity = computed(() => {
+    const max = this.product()?.inventory.quantity;
+    return max != null && this.quantity() >= max;
+  });
+
   constructor() {
-    // Reset gallery selection and the cart notice whenever the viewed product changes.
+    // Reset gallery selection, quantity, and the cart notice whenever the viewed product changes.
     effect(() => {
       this.slug();
       this.selectedImageIndex.set(0);
       this.cartNoticeVisible.set(false);
+      this.quantity.set(1);
     });
   }
 
@@ -55,7 +65,18 @@ export class ProductDetail {
     this.selectedImageIndex.set(index);
   }
 
-  protected onAddToCart(): void {
+  protected incrementQuantity(): void {
+    if (!this.atMaxQuantity()) {
+      this.quantity.update((quantity) => quantity + 1);
+    }
+  }
+
+  protected decrementQuantity(): void {
+    this.quantity.update((quantity) => Math.max(1, quantity - 1));
+  }
+
+  protected onAddToCart(product: Product): void {
+    this.cartService.addItem(product, this.quantity());
     this.cartNoticeVisible.set(true);
   }
 }

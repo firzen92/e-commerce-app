@@ -1,0 +1,70 @@
+<section class="cart-page" aria-labelledby="cart-heading">
+  <h1 id="cart-heading" class="cart-page__title">Your Cart</h1>
+
+  @if (items().length > 0) {
+    <div class="cart-page__layout">
+      <ul class="cart-page__list">
+        @for (item of items(); track item.product.id) {
+          <li class="cart-page__item">
+            <a [routerLink]="['/products', item.product.slug]" class="cart-page__item-image">
+              <img [src]="item.product.images[0].url" [alt]="item.product.images[0].alt" width="96" height="96" />
+            </a>
+
+            <div class="cart-page__item-info">
+              <a [routerLink]="['/products', item.product.slug]" class="cart-page__item-name">{{
+                item.product.name
+              }}</a>
+              <p class="cart-page__item-price">{{ formatMoney(item.product.price) }}</p>
+
+              <div class="cart-page__quantity" role="group" [attr.aria-label]="'Quantity for ' + item.product.name">
+                <button
+                  type="button"
+                  (click)="decrement(item.product.id, item.quantity)"
+                  aria-label="Decrease quantity"
+                >
+                  −
+                </button>
+                <span class="cart-page__quantity-value">{{ item.quantity }}</span>
+                <button
+                  type="button"
+                  (click)="increment(item.product.id, item.quantity, item.product.inventory.quantity)"
+                  [disabled]="item.product.inventory.quantity != null && item.quantity >= item.product.inventory.quantity"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="cart-page__remove"
+              (click)="remove(item.product.id)"
+              [attr.aria-label]="'Remove ' + item.product.name + ' from cart'"
+            >
+              Remove
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="cart-page__summary">
+        <div class="cart-page__subtotal">
+          <span>Subtotal</span>
+          <span>{{ formatMoney(subtotal()) }}</span>
+        </div>
+
+        <button type="button" class="cart-page__checkout" (click)="onCheckout()">Checkout</button>
+
+        @if (checkoutNoticeVisible()) {
+          <p class="cart-page__checkout-notice" role="status">
+            Checkout is coming soon — you won't be able to complete an order just yet.
+          </p>
+        }
+      </div>
+    </div>
+  } @else {
+    <p class="cart-page__empty">Your cart is empty.</p>
+    <a routerLink="/shop" class="cart-page__cta">Browse products</a>
+  }
+</section>

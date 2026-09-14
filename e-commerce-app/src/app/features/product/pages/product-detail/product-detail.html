@@ -62,18 +62,40 @@
           {{ product.inventory.inStock ? 'In stock' : 'Out of stock' }}
         </p>
 
+        @if (product.inventory.inStock) {
+          <div class="product-detail__quantity" role="group" aria-label="Quantity">
+            <button
+              type="button"
+              (click)="decrementQuantity()"
+              [disabled]="quantity() <= 1"
+              aria-label="Decrease quantity"
+            >
+              −
+            </button>
+            <span class="product-detail__quantity-value">{{ quantity() }}</span>
+            <button
+              type="button"
+              (click)="incrementQuantity()"
+              [disabled]="atMaxQuantity()"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
+        }
+
         <button
           type="button"
           class="product-detail__add-to-cart"
           [disabled]="!product.inventory.inStock"
-          (click)="onAddToCart()"
+          (click)="onAddToCart(product)"
         >
           Add to Cart
         </button>
 
         @if (cartNoticeVisible()) {
           <p class="product-detail__cart-notice" role="status">
-            Cart is coming soon — you won't be able to check out just yet.
+            Added {{ quantity() }} to your cart.
           </p>
         }
 

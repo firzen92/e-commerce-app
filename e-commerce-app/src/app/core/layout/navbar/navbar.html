@@ -22,9 +22,12 @@
       <a routerLink="/wishlist" class="navbar__icon-button" aria-label="View wishlist">
         <mat-icon aria-hidden="true">{{ wishlistCount() > 0 ? 'favorite' : 'favorite_border' }}</mat-icon>
       </a>
-      <button type="button" class="navbar__icon-button" aria-label="View shopping cart">
+      <a routerLink="/cart" class="navbar__icon-button navbar__icon-button--cart" aria-label="View shopping cart">
         <mat-icon aria-hidden="true">shopping_bag</mat-icon>
-      </button>
+        @if (cartCount() > 0) {
+          <span class="navbar__badge">{{ cartCount() }}</span>
+        }
+      </a>
       @if (currentUser(); as user) {
         <button
           type="button"

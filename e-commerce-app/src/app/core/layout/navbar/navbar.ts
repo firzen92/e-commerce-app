@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { AUTH_SERVICE, WISHLIST_SERVICE } from '../../services';
+import { CartService } from '../../../state/cart.service';
 
 interface NavLink {
   readonly label: string;
@@ -21,11 +22,13 @@ interface NavLink {
 export class Navbar {
   private readonly authService = inject(AUTH_SERVICE);
   private readonly wishlistService = inject(WISHLIST_SERVICE);
+  private readonly cartService = inject(CartService);
   private readonly router = inject(Router);
 
   protected readonly isMobileMenuOpen = signal(false);
   protected readonly currentUser = this.authService.currentUser;
   protected readonly wishlistCount = computed(() => this.wishlistService.items()?.length ?? 0);
+  protected readonly cartCount = this.cartService.itemCount;
 
   protected readonly navLinks: readonly NavLink[] = [
     { label: 'Home', path: '/' },
