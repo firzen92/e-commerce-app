@@ -1,0 +1,57 @@
+<section class="order-history-page" aria-labelledby="order-history-heading">
+  <h1 id="order-history-heading" class="order-history-page__title">Order History</h1>
+
+  @if (orders(); as orderList) {
+    @if (orderList.length > 0) {
+      <ul class="order-history-page__list">
+        @for (order of orderList; track order.id) {
+          <li class="order-history-page__order">
+            <div class="order-history-page__order-header">
+              <div>
+                <p class="order-history-page__order-id">Order {{ order.id }}</p>
+                <p class="order-history-page__order-date">{{ formatDate(order.createdAt) }}</p>
+              </div>
+              <span class="order-history-page__status-badge" [attr.data-status]="order.status">{{
+                order.status
+              }}</span>
+            </div>
+
+            <ul class="order-history-page__items">
+              @for (item of order.lineItems; track item.productId) {
+                <li class="order-history-page__item">
+                  @if (item.product; as product) {
+                    <a [routerLink]="['/products', product.slug]" class="order-history-page__item-image">
+                      <img [src]="product.images[0].url" [alt]="product.images[0].alt" width="56" height="56" />
+                    </a>
+                    <a [routerLink]="['/products', product.slug]" class="order-history-page__item-name">{{
+                      product.name
+                    }}</a>
+                  } @else {
+                    <span class="order-history-page__item-image order-history-page__item-image--placeholder"></span>
+                    <span class="order-history-page__item-name order-history-page__item-name--unavailable"
+                      >Product no longer available</span
+                    >
+                  }
+                  <span class="order-history-page__item-quantity">&times;{{ item.quantity }}</span>
+                  <span class="order-history-page__item-price">{{ formatMoney(item.unitPrice) }}</span>
+                </li>
+              }
+            </ul>
+
+            <div class="order-history-page__order-total">
+              <span>Total</span>
+              <span>{{ formatMoney(order.total) }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="order-history-page__empty">You haven't placed any orders yet.</p>
+      <a routerLink="/shop" class="order-history-page__cta">Browse products</a>
+    }
+  } @else if (orders() === undefined) {
+    <p class="order-history-page__status" role="alert">We couldn't load your orders. Please try again later.</p>
+  } @else {
+    <p class="order-history-page__status" role="status">Loading your orders…</p>
+  }
+</section>

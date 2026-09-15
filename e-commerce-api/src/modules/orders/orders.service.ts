@@ -9,7 +9,12 @@ import { PaginatedResult } from '../../common/interfaces';
 import { ProductsService } from '../products';
 import { CreateOrderDto } from './dto';
 import { ORDERS_REPOSITORY } from './interfaces';
-import type { Order, OrderLineItem, OrdersRepository } from './interfaces';
+import type {
+  Order,
+  OrderLineItem,
+  OrdersRepository,
+  OrderWithProducts,
+} from './interfaces';
 
 @Injectable()
 export class OrdersService {
@@ -19,15 +24,56 @@ export class OrdersService {
     private readonly productsService: ProductsService,
   ) {}
 
-  findAllForUser(
+  async findAllForUser(
     userId: string,
     pagination: PaginationQueryDto,
-  ): Promise<PaginatedResult<Order>> {
-    return this.ordersRepository.findAllForUser(userId, pagination);
+  ): Promise<PaginatedResult<OrderWithProducts>> {
+    const result = await this.ordersRepository.findAllForUser(
+      userId,
+      pagination,
+    );
+
+    return { ...result, data: await this.withProducts(result.data) };
   }
 
-  findByIdForUser(id: string, userId: string): Promise<Order | null> {
-    return this.ordersRepository.findByIdForUser(id, userId);
+  async findByIdForUser(
+    id: string,
+    userId: string,
+  ): Promise<OrderWithProducts | null> {
+    const order = await this.ordersRepository.findByIdForUser(id, userId);
+    if (!order) {
+      return null;
+    }
+
+    const [enriched] = await this.withProducts([order]);
+    return enriched;
+  }
+
+  /** Batches one product lookup across every line item of every order, rather than a lookup per order. */
+  private async withProducts(orders: Order[]): Promise<OrderWithProducts[]> {
+    if (orders.length === 0) {
+      return [];
+    }
+
+    const productIds = [
+      ...new Set(
+        orders.flatMap((order) =>
+          order.line_items.map((item) => item.product_id),
+        ),
+      ),
+    ];
+    const products = await this.productsService.findByIds(productIds);
+    const productById = new Map(
+      products.map((product) => [product.id, product]),
+    );
+
+    return orders.map((order) => ({
+      ...order,
+      line_items: order.line_items.map((item) => ({
+        ...item,
+        product: productById.get(item.product_id) ?? null,
+      })),
+    }));
   }
 
   async createOrder(userId: string, dto: CreateOrderDto): Promise<Order> {

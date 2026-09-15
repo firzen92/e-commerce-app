@@ -1,3 +1,5 @@
+import { Product } from '../../products/interfaces';
+
 export type OrderStatus =
   'pending' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded';
 
@@ -23,4 +25,15 @@ export interface CreateOrderInput {
   lineItems: OrderLineItem[];
   totalAmount: number;
   totalCurrency: string;
+}
+
+/** An order line item enriched with the *current* product record, for display purposes only
+ *  — `unit_price_*` above remains the authoritative price actually paid at the time of purchase.
+ *  `null` when the product has since been deleted. */
+export interface OrderLineItemWithProduct extends OrderLineItem {
+  product: Product | null;
+}
+
+export interface OrderWithProducts extends Omit<Order, 'line_items'> {
+  line_items: OrderLineItemWithProduct[];
 }

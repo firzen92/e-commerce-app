@@ -1,5 +1,6 @@
 import { CurrencyCode } from '../../models/money.model';
 import { Order, OrderLineItem } from '../../models';
+import { mapProductApiModelToProduct } from './product-api.mapper';
 import { OrderApiModel, OrderLineItemApiModel } from './order-api.model';
 
 function mapOrderLineItemApiModelToOrderLineItem(apiModel: OrderLineItemApiModel): OrderLineItem {
@@ -9,7 +10,8 @@ function mapOrderLineItemApiModelToOrderLineItem(apiModel: OrderLineItemApiModel
     unitPrice: {
       amount: apiModel.unit_price_amount,
       currency: apiModel.unit_price_currency as CurrencyCode
-    }
+    },
+    product: apiModel.product ? mapProductApiModelToProduct(apiModel.product) : null
   };
 }
 

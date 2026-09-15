@@ -6,7 +6,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Product } from '../products/interfaces';
 import { ProductsService } from '../products';
 import { CreateOrderDto } from './dto';
-import { ORDERS_REPOSITORY, OrdersRepository } from './interfaces';
+import { ORDERS_REPOSITORY, Order, OrdersRepository } from './interfaces';
 import { OrdersService } from './orders.service';
 
 function buildProduct(overrides: Partial<Product> = {}): Product {
@@ -144,9 +144,69 @@ describe('OrdersService', () => {
     });
   });
 
+  function buildOrder(overrides: Partial<Order> = {}): Order {
+    return {
+      id: 'order-1',
+      user_id: 'user-1',
+      status: 'pending' as const,
+      line_items: [
+        {
+          product_id: 'product-1',
+          quantity: 2,
+          unit_price_amount: 10,
+          unit_price_currency: 'USD',
+        },
+      ],
+      total_amount: 20,
+      total_currency: 'USD',
+      created_at: '2026-01-01T00:00:00.000Z',
+      updated_at: '2026-01-01T00:00:00.000Z',
+      ...overrides,
+    };
+  }
+
   describe('findAllForUser', () => {
-    it('delegates to the repository', async () => {
+    it('enriches each returned order with its current product records', async () => {
       const pagination = { page: 1, limit: 20 };
+      ordersRepository.findAllForUser.mockResolvedValue({
+        data: [buildOrder()],
+        page: 1,
+        limit: 20,
+        total: 1,
+      });
+      productsService.findByIds.mockResolvedValue([
+        buildProduct({ id: 'product-1' }),
+      ]);
+
+      const result = await service.findAllForUser('user-1', pagination);
+
+      // eslint-disable-next-line @typescript-eslint/unbound-method -- jest.Mocked mock function reference, not a real bound method
+      expect(ordersRepository.findAllForUser).toHaveBeenCalledWith(
+        'user-1',
+        pagination,
+      );
+      expect(productsService.findByIds).toHaveBeenCalledWith(['product-1']);
+      expect(result.data[0].line_items[0].product?.id).toBe('product-1');
+    });
+
+    it('sets product to null when a line item references a deleted product', async () => {
+      ordersRepository.findAllForUser.mockResolvedValue({
+        data: [buildOrder()],
+        page: 1,
+        limit: 20,
+        total: 1,
+      });
+      productsService.findByIds.mockResolvedValue([]);
+
+      const result = await service.findAllForUser('user-1', {
+        page: 1,
+        limit: 20,
+      });
+
+      expect(result.data[0].line_items[0].product).toBeNull();
+    });
+
+    it('does not query products for an empty order list', async () => {
       ordersRepository.findAllForUser.mockResolvedValue({
         data: [],
         page: 1,
@@ -154,27 +214,36 @@ describe('OrdersService', () => {
         total: 0,
       });
 
-      await service.findAllForUser('user-1', pagination);
+      await service.findAllForUser('user-1', { page: 1, limit: 20 });
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method -- jest.Mocked mock function reference, not a real bound method
-      expect(ordersRepository.findAllForUser).toHaveBeenCalledWith(
-        'user-1',
-        pagination,
-      );
+      expect(productsService.findByIds).not.toHaveBeenCalled();
     });
   });
 
   describe('findByIdForUser', () => {
-    it('delegates to the repository', async () => {
+    it('returns null without querying products when the order does not exist', async () => {
       ordersRepository.findByIdForUser.mockResolvedValue(null);
 
-      await service.findByIdForUser('order-1', 'user-1');
+      const result = await service.findByIdForUser('order-1', 'user-1');
+
+      expect(result).toBeNull();
+      expect(productsService.findByIds).not.toHaveBeenCalled();
+    });
+
+    it('enriches the order with its current product records', async () => {
+      ordersRepository.findByIdForUser.mockResolvedValue(buildOrder());
+      productsService.findByIds.mockResolvedValue([
+        buildProduct({ id: 'product-1' }),
+      ]);
+
+      const result = await service.findByIdForUser('order-1', 'user-1');
 
       // eslint-disable-next-line @typescript-eslint/unbound-method -- jest.Mocked mock function reference, not a real bound method
       expect(ordersRepository.findByIdForUser).toHaveBeenCalledWith(
         'order-1',
         'user-1',
       );
+      expect(result?.line_items[0].product?.id).toBe('product-1');
     });
   });
 });

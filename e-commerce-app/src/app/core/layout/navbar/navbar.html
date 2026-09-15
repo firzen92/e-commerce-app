@@ -39,6 +39,7 @@
         </button>
         <mat-menu #accountMenu="matMenu">
           <div class="navbar__account-email">{{ user.email }}</div>
+          <a routerLink="/orders" mat-menu-item>Order history</a>
           <button type="button" mat-menu-item (click)="signOut()">Sign out</button>
         </mat-menu>
       } @else {
@@ -77,6 +78,7 @@
       @if (currentUser(); as user) {
         <div class="navbar__mobile-account">
           <span class="navbar__account-email">{{ user.email }}</span>
+          <a routerLink="/orders" class="navbar__mobile-link" (click)="closeMobileMenu()">Order history</a>
           <button type="button" class="navbar__mobile-link" (click)="signOut(); closeMobileMenu()">
             Sign out
           </button>

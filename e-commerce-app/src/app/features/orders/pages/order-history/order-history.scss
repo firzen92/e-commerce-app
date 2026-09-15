@@ -1,0 +1,168 @@
+.order-history-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.order-history-page__title {
+  margin: 0 0 32px;
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.order-history-page__status,
+.order-history-page__empty {
+  color: #6b6b6b;
+  font-size: 1rem;
+}
+
+.order-history-page__cta {
+  display: inline-block;
+  margin-top: 8px;
+  color: #111;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid #111;
+  padding-bottom: 2px;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 0.6;
+  }
+}
+
+.order-history-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order-history-page__order {
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.order-history-page__order-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-history-page__order-id {
+  margin: 0;
+  font-weight: 600;
+  color: #161616;
+}
+
+.order-history-page__order-date {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: #6b6b6b;
+}
+
+.order-history-page__status-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #f2f1ee;
+  color: #6b6b6b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  &[data-status='paid'],
+  &[data-status='fulfilled'] {
+    background: #e6f4ea;
+    color: #1e7a34;
+  }
+
+  &[data-status='cancelled'],
+  &[data-status='refunded'] {
+    background: #fbe9e7;
+    color: #b3261e;
+  }
+}
+
+.order-history-page__items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.order-history-page__item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-history-page__item-image {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5f4f2;
+  line-height: 0;
+
+  img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    display: block;
+  }
+
+  &--placeholder {
+    background: #f5f4f2;
+  }
+}
+
+.order-history-page__item-name {
+  color: #161616;
+  font-size: 0.9rem;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+
+  &--unavailable {
+    color: #9a9a9a;
+    font-style: italic;
+  }
+}
+
+.order-history-page__item-quantity {
+  color: #6b6b6b;
+  font-size: 0.85rem;
+}
+
+.order-history-page__item-price {
+  color: #161616;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.order-history-page__order-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  font-weight: 600;
+  color: #161616;
+}

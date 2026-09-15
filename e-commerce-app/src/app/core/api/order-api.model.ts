@@ -1,10 +1,12 @@
 import { OrderStatus } from '../../models';
+import { ProductApiModel } from './product-api.model';
 
 export interface OrderLineItemApiModel {
   product_id: string;
   quantity: number;
   unit_price_amount: number;
   unit_price_currency: string;
+  product: ProductApiModel | null;
 }
 
 export interface OrderApiModel {

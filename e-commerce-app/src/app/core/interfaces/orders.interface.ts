@@ -3,4 +3,6 @@ import { CreateOrderItem, Order } from '../../models';
 
 export interface OrdersService {
   placeOrder(items: readonly CreateOrderItem[]): Observable<Order>;
+  /** Most recent orders first. */
+  listOrders(): Observable<Order[]>;
 }
