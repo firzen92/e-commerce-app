@@ -7,3 +7,5 @@ export * from './mock-auth.service';
 export * from './supabase-auth.service';
 export * from './mock-wishlist.service';
 export * from './http-wishlist.service';
+export * from './mock-orders.service';
+export * from './http-orders.service';

@@ -18,3 +18,9 @@ export interface Order {
   created_at: string;
   updated_at: string;
 }
+
+export interface CreateOrderInput {
+  lineItems: OrderLineItem[];
+  totalAmount: number;
+  totalCurrency: string;
+}

@@ -1,7 +1,13 @@
 <section class="cart-page" aria-labelledby="cart-heading">
   <h1 id="cart-heading" class="cart-page__title">Your Cart</h1>
 
-  @if (items().length > 0) {
+  @if (placedOrder(); as order) {
+    <div class="cart-page__confirmation" role="status">
+      <p class="cart-page__confirmation-title">Thanks for your order!</p>
+      <p>Order <strong>{{ order.id }}</strong> for {{ formatMoney(order.total) }} has been placed.</p>
+      <a routerLink="/shop" class="cart-page__cta">Continue shopping</a>
+    </div>
+  } @else if (items().length > 0) {
     <div class="cart-page__layout">
       <ul class="cart-page__list">
         @for (item of items(); track item.product.id) {
@@ -54,11 +60,18 @@
           <span>{{ formatMoney(subtotal()) }}</span>
         </div>
 
-        <button type="button" class="cart-page__checkout" (click)="onCheckout()">Checkout</button>
+        <button
+          type="button"
+          class="cart-page__checkout"
+          (click)="onCheckout()"
+          [disabled]="checkoutState() === 'processing'"
+        >
+          {{ checkoutState() === 'processing' ? 'Placing order…' : 'Checkout' }}
+        </button>
 
-        @if (checkoutNoticeVisible()) {
-          <p class="cart-page__checkout-notice" role="status">
-            Checkout is coming soon — you won't be able to complete an order just yet.
+        @if (checkoutState() === 'error') {
+          <p class="cart-page__checkout-notice" role="alert">
+            We couldn't place your order. Please try again.
           </p>
         }
       </div>

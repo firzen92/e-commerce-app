@@ -179,6 +179,22 @@
   color: #9a7a4f;
 }
 
+.cart-page__confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #f9f8f6;
+  color: #161616;
+}
+
+.cart-page__confirmation-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 .cart-page__empty {
   color: #6b6b6b;
   font-size: 1rem;

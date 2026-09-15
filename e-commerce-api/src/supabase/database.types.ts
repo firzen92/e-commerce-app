@@ -5,6 +5,7 @@
  * and reconcile any drift.
  */
 import { ProductImage } from '../modules/products/interfaces/product.interface';
+import { OrderLineItem, OrderStatus } from '../modules/orders/interfaces/order.interface';
 
 export interface Database {
   public: {
@@ -89,6 +90,29 @@ export interface Database {
         Update: Partial<
           Database['public']['Tables']['wishlist_items']['Insert']
         >;
+      };
+      orders: {
+        Row: {
+          id: string;
+          user_id: string;
+          status: OrderStatus;
+          line_items: OrderLineItem[];
+          total_amount: number;
+          total_currency: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          status?: OrderStatus;
+          line_items: OrderLineItem[];
+          total_amount: number;
+          total_currency?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['orders']['Insert']>;
       };
     };
     Views: Record<string, never>;
