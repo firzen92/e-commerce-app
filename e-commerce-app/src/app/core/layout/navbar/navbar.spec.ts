@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { AUTH_SERVICE, MockAuthService, MockWishlistService, WISHLIST_SERVICE } from '../../services';
 import { Navbar } from './navbar';
@@ -38,5 +38,26 @@ describe('Navbar', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('button[aria-label="Account menu"]')).not.toBeNull();
     expect(compiled.querySelector('a[aria-label="Sign in"]')).toBeNull();
+  });
+
+  it('opens an inline search field and navigates to the search page on submit', async () => {
+    const fixture = TestBed.createComponent(Navbar);
+    await fixture.whenStable();
+
+    const router = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(router, 'navigate');
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    (compiled.querySelector('button[aria-label="Search products"]') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    const input = compiled.querySelector('input[aria-label="Search products"]') as HTMLInputElement;
+    expect(input).not.toBeNull();
+    input.value = 'lamp';
+    (compiled.querySelector('form') as HTMLFormElement).dispatchEvent(
+      new Event('submit', { cancelable: true })
+    );
+
+    expect(navigateSpy).toHaveBeenCalledWith(['/search'], { queryParams: { q: 'lamp' } });
   });
 });

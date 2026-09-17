@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/product/product.routes').then((m) => m.PRODUCT_ROUTES)
   },
   {
+    path: 'search',
+    loadChildren: () => import('./features/search/search.routes').then((m) => m.SEARCH_ROUTES)
+  },
+  {
     path: 'wishlist',
     canActivate: [authGuard],
     loadChildren: () => import('./features/wishlist/wishlist.routes').then((m) => m.WISHLIST_ROUTES)

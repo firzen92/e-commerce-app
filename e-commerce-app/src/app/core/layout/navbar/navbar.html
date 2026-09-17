@@ -16,9 +16,25 @@
     </nav>
 
     <div class="navbar__actions">
-      <button type="button" class="navbar__icon-button" aria-label="Search products">
-        <mat-icon aria-hidden="true">search</mat-icon>
-      </button>
+      @if (isSearchOpen()) {
+        <form class="navbar__search-form" (submit)="onSearchSubmit($event, searchInput)">
+          <input
+            #searchInput
+            type="search"
+            class="navbar__search-input"
+            placeholder="Search products…"
+            aria-label="Search products"
+            autofocus
+          />
+          <button type="button" class="navbar__icon-button" aria-label="Close search" (click)="toggleSearch()">
+            <mat-icon aria-hidden="true">close</mat-icon>
+          </button>
+        </form>
+      } @else {
+        <button type="button" class="navbar__icon-button" aria-label="Search products" (click)="toggleSearch()">
+          <mat-icon aria-hidden="true">search</mat-icon>
+        </button>
+      }
       <a routerLink="/wishlist" class="navbar__icon-button" aria-label="View wishlist">
         <mat-icon aria-hidden="true">{{ wishlistCount() > 0 ? 'favorite' : 'favorite_border' }}</mat-icon>
       </a>
@@ -74,6 +90,8 @@
           {{ link.label }}
         </a>
       }
+
+      <a routerLink="/search" class="navbar__mobile-link" (click)="closeMobileMenu()">Search</a>
 
       @if (currentUser(); as user) {
         <div class="navbar__mobile-account">

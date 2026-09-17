@@ -1,0 +1,33 @@
+<section class="search-page" aria-labelledby="search-heading">
+  <h1 id="search-heading" class="search-page__title">Search Products</h1>
+
+  <form class="search-page__form" (submit)="onSubmit($event, searchInput)">
+    <input
+      #searchInput
+      type="search"
+      class="search-page__input"
+      [value]="q()"
+      placeholder="Search products…"
+      aria-label="Search products"
+    />
+    <button type="submit" class="search-page__submit">Search</button>
+  </form>
+
+  @if (q().trim()) {
+    @if (results(); as products) {
+      @if (products.length > 0) {
+        <div class="search-page__grid">
+          @for (product of products; track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      } @else {
+        <p class="search-page__empty">No products match "{{ q() }}".</p>
+      }
+    } @else {
+      <p class="search-page__empty">Searching…</p>
+    }
+  } @else {
+    <p class="search-page__empty">Type a search term to find products.</p>
+  }
+</section>

@@ -93,6 +93,32 @@
   }
 }
 
+.navbar__search-form {
+  display: none;
+  align-items: center;
+  gap: 4px;
+
+  @media (min-width: 640px) {
+    display: flex;
+  }
+}
+
+.navbar__search-input {
+  width: 180px;
+  padding: 8px 14px;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: #161616;
+  background: #fff;
+
+  &:focus-visible {
+    outline: none;
+    border-color: #111;
+  }
+}
+
 .navbar__icon-button--cart {
   position: relative;
 }

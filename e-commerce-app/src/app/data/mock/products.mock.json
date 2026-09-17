@@ -77,7 +77,7 @@
     "price": { "amount": 129, "currency": "USD" },
     "categoryId": "cat-2",
     "images": [
-      { "url": "https://images.unsplash.com/photo-1543198126-cae9dee3fa9e?w=1200&q=80", "alt": "Terra Ceramic Table Lamp on a wooden nightstand" }
+      { "url": "https://images.unsplash.com/photo-1571385761622-aa2467d9f4b0?w=1200&q=80", "alt": "Terra Ceramic Table Lamp on a wooden nightstand" }
     ],
     "rating": { "average": 4.5, "count": 61 },
     "inventory": { "inStock": true, "quantity": 45 },
@@ -179,7 +179,7 @@
     "price": { "amount": 42, "currency": "USD" },
     "categoryId": "cat-3",
     "images": [
-      { "url": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b9?w=1200&q=80", "alt": "Kindle Taper Candle Trio on a dining table" }
+      { "url": "https://images.unsplash.com/photo-1545666215-c5fbc4a9f4fd?w=1200&q=80", "alt": "Kindle Taper Candle Trio on a dining table" }
     ],
     "rating": { "average": 4.3, "count": 29 },
     "inventory": { "inStock": true, "quantity": 80 },

@@ -61,7 +61,7 @@ values
     'A matte stoneware base paired with a linen shade, bringing quiet texture to any side table.',
     129, 'USD', null,
     (select id from categories where slug = 'lighting'),
-    '[{"url": "https://images.unsplash.com/photo-1543198126-cae9dee3fa9e?w=1200&q=80", "alt": "Terra Ceramic Table Lamp on a wooden nightstand"}]'::jsonb,
+    '[{"url": "https://images.unsplash.com/photo-1571385761622-aa2467d9f4b0?w=1200&q=80", "alt": "Terra Ceramic Table Lamp on a wooden nightstand"}]'::jsonb,
     4.5, 61, true, 45,
     array['bedroom'], false, true, '2026-07-01T00:00:00.000Z'
   ),
@@ -115,7 +115,7 @@ values
     'Unscented beeswax tapers in three earthy tones, hand-dipped in small batches.',
     42, 'USD', null,
     (select id from categories where slug = 'decor'),
-    '[{"url": "https://images.unsplash.com/photo-1602874801007-bd458bb1b8b9?w=1200&q=80", "alt": "Kindle Taper Candle Trio on a dining table"}]'::jsonb,
+    '[{"url": "https://images.unsplash.com/photo-1545666215-c5fbc4a9f4fd?w=1200&q=80", "alt": "Kindle Taper Candle Trio on a dining table"}]'::jsonb,
     4.3, 29, true, 80,
     array['decor'], false, true, '2026-07-15T00:00:00.000Z'
   ),

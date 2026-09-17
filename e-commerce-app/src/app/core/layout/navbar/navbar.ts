@@ -26,6 +26,7 @@ export class Navbar {
   private readonly router = inject(Router);
 
   protected readonly isMobileMenuOpen = signal(false);
+  protected readonly isSearchOpen = signal(false);
   protected readonly currentUser = this.authService.currentUser;
   protected readonly wishlistCount = computed(() => this.wishlistService.items()?.length ?? 0);
   protected readonly cartCount = this.cartService.itemCount;
@@ -43,6 +44,23 @@ export class Navbar {
 
   protected closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
+  }
+
+  protected toggleSearch(): void {
+    this.isSearchOpen.update((isOpen) => !isOpen);
+  }
+
+  protected onSearchSubmit(event: Event, input: HTMLInputElement): void {
+    event.preventDefault();
+    const term = input.value.trim();
+
+    if (!term) {
+      return;
+    }
+
+    this.isSearchOpen.set(false);
+    input.value = '';
+    void this.router.navigate(['/search'], { queryParams: { q: term } });
   }
 
   protected signOut(): void {
