@@ -9,3 +9,5 @@ export * from './mock-wishlist.service';
 export * from './http-wishlist.service';
 export * from './mock-orders.service';
 export * from './http-orders.service';
+export * from './mock-reviews-catalog.service';
+export * from './http-reviews-catalog.service';

@@ -5,7 +5,10 @@
  * and reconcile any drift.
  */
 import { ProductImage } from '../modules/products/interfaces/product.interface';
-import { OrderLineItem, OrderStatus } from '../modules/orders/interfaces/order.interface';
+import {
+  OrderLineItem,
+  OrderStatus,
+} from '../modules/orders/interfaces/order.interface';
 
 export interface Database {
   public: {
@@ -113,6 +116,27 @@ export interface Database {
           updated_at?: string;
         };
         Update: Partial<Database['public']['Tables']['orders']['Insert']>;
+      };
+      reviews: {
+        Row: {
+          id: string;
+          product_id: string;
+          user_id: string;
+          rating: number;
+          comment: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          user_id: string;
+          rating: number;
+          comment?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['reviews']['Insert']>;
       };
     };
     Views: Record<string, never>;

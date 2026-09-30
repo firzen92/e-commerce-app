@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { combineLatest, switchMap } from 'rxjs';
 import { Product } from '../../../../models';
 import { PRODUCT_CATALOG } from '../../../../core/services';
 import { CartService } from '../../../../state/cart.service';
 import { Rating } from '../../../../shared/components';
 import { formatMoney } from '../../../../shared/utils/currency.util';
+import { ProductReviews } from '../../components/product-reviews/product-reviews';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [RouterLink, Rating],
+  imports: [RouterLink, Rating, ProductReviews],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -23,8 +24,11 @@ export class ProductDetail {
   /** Bound from the `:slug` route param via withComponentInputBinding(). */
   readonly slug = input.required<string>();
 
-  private readonly product$ = toObservable(this.slug).pipe(
-    switchMap((slug) => this.productCatalog.getProductBySlug(slug))
+  /** Bumped when reviews change so the product (and its aggregate rating) is refetched without resetting the page. */
+  private readonly productRefresh = signal(0);
+
+  private readonly product$ = combineLatest([toObservable(this.slug), toObservable(this.productRefresh)]).pipe(
+    switchMap(([slug]) => this.productCatalog.getProductBySlug(slug))
   );
 
   /** `null` while the lookup for the current slug is in flight, `undefined` once it resolves with no match. */
@@ -59,6 +63,10 @@ export class ProductDetail {
       this.cartNoticeVisible.set(false);
       this.quantity.set(1);
     });
+  }
+
+  protected onReviewsChanged(): void {
+    this.productRefresh.update((value) => value + 1);
   }
 
   protected selectImage(index: number): void {

@@ -1,7 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { routes } from '../../../../app.routes';
-import { PRODUCT_CATALOG, MockProductCatalogService } from '../../../../core/services';
+import {
+  AUTH_SERVICE,
+  MockAuthService,
+  MockProductCatalogService,
+  MockReviewsCatalogService,
+  PRODUCT_CATALOG,
+  REVIEWS_CATALOG
+} from '../../../../core/services';
 import { CartService } from '../../../../state/cart.service';
 import { ProductDetail } from './product-detail';
 
@@ -9,7 +16,12 @@ describe('ProductDetail', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProductDetail],
-      providers: [provideRouter(routes), { provide: PRODUCT_CATALOG, useClass: MockProductCatalogService }]
+      providers: [
+        provideRouter(routes),
+        { provide: PRODUCT_CATALOG, useClass: MockProductCatalogService },
+        { provide: AUTH_SERVICE, useClass: MockAuthService },
+        { provide: REVIEWS_CATALOG, useClass: MockReviewsCatalogService }
+      ]
     }).compileComponents();
   });
 
@@ -81,5 +93,20 @@ describe('ProductDetail', () => {
 
     const cartService = TestBed.inject(CartService);
     expect(cartService.items()[0].quantity).toBe(2);
+  });
+
+  it('refetches the product when the reviews change', async () => {
+    const catalog = TestBed.inject(PRODUCT_CATALOG);
+    const getProductBySlug = vi.spyOn(catalog, 'getProductBySlug');
+
+    const fixture = TestBed.createComponent(ProductDetail);
+    fixture.componentRef.setInput('slug', 'aria-lounge-chair');
+    await fixture.whenStable();
+    expect(getProductBySlug).toHaveBeenCalledTimes(1);
+
+    fixture.componentInstance['onReviewsChanged']();
+    await fixture.whenStable();
+
+    expect(getProductBySlug).toHaveBeenCalledTimes(2);
   });
 });

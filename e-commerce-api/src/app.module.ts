@@ -12,6 +12,7 @@ import { ProductsModule } from './modules/products';
 import { OrdersModule } from './modules/orders';
 import { CategoriesModule } from './modules/categories';
 import { WishlistModule } from './modules/wishlist';
+import { ReviewsModule } from './modules/reviews';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { WishlistModule } from './modules/wishlist';
     OrdersModule,
     CategoriesModule,
     WishlistModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [

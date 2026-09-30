@@ -14,9 +14,11 @@ import {
   HttpCategoryCatalogService,
   HttpOrdersService,
   HttpProductCatalogService,
+  HttpReviewsCatalogService,
   HttpWishlistService,
   ORDERS_SERVICE,
   PRODUCT_CATALOG,
+  REVIEWS_CATALOG,
   SupabaseAuthService,
   WISHLIST_SERVICE
 } from './core/services';
@@ -31,6 +33,7 @@ export const appConfig: ApplicationConfig = {
     { provide: CATEGORY_CATALOG, useClass: HttpCategoryCatalogService },
     { provide: AUTH_SERVICE, useClass: SupabaseAuthService },
     { provide: WISHLIST_SERVICE, useClass: HttpWishlistService },
-    { provide: ORDERS_SERVICE, useClass: HttpOrdersService }
+    { provide: ORDERS_SERVICE, useClass: HttpOrdersService },
+    { provide: REVIEWS_CATALOG, useClass: HttpReviewsCatalogService }
   ]
 };

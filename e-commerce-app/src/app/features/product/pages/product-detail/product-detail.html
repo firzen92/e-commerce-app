@@ -108,6 +108,8 @@
         }
       </div>
     </div>
+
+    <app-product-reviews [productId]="product.id" (reviewsChanged)="onReviewsChanged()" />
   </div>
 } @else if (product() === undefined) {
   <div class="product-detail__status product-detail__status--empty">

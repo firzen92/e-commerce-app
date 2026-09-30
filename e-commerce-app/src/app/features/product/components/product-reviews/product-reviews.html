@@ -1,0 +1,110 @@
+<section class="product-reviews" aria-labelledby="product-reviews-heading">
+  <div class="product-reviews__header">
+    <h2 id="product-reviews-heading" class="product-reviews__title">Reviews</h2>
+
+    @if (!isEditing()) {
+      <button type="button" class="product-reviews__write-button" (click)="startReview()">
+        {{ myReview() ? 'Edit your review' : 'Write a review' }}
+      </button>
+    }
+  </div>
+
+  @if (isEditing()) {
+    <form class="product-reviews__form" (submit)="$event.preventDefault(); submitReview()">
+      <div class="product-reviews__star-picker" role="radiogroup" aria-label="Your rating">
+        @for (star of stars; track star) {
+          <button
+            type="button"
+            class="product-reviews__star"
+            [attr.aria-label]="star + (star === 1 ? ' star' : ' stars')"
+            [attr.aria-pressed]="star <= draftRating()"
+            (click)="setDraftRating(star)"
+          >
+            <mat-icon aria-hidden="true">{{ star <= draftRating() ? 'star' : 'star_border' }}</mat-icon>
+          </button>
+        }
+      </div>
+
+      <textarea
+        class="product-reviews__comment-input"
+        [value]="draftComment()"
+        (input)="onCommentInput($event)"
+        placeholder="Share your thoughts (optional)"
+        rows="3"
+        maxlength="2000"
+        aria-label="Your review comment"
+      ></textarea>
+
+      @if (errorMessage(); as message) {
+        <p class="product-reviews__error" role="alert">{{ message }}</p>
+      }
+
+      <div class="product-reviews__form-actions">
+        <button type="submit" class="product-reviews__submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Saving…' : 'Submit review' }}
+        </button>
+        <button
+          type="button"
+          class="product-reviews__cancel"
+          (click)="cancelEditing()"
+          [disabled]="isSubmitting()"
+        >
+          Cancel
+        </button>
+        @if (myReview()) {
+          <button
+            type="button"
+            class="product-reviews__delete"
+            (click)="deleteReview()"
+            [disabled]="isSubmitting()"
+          >
+            Delete review
+          </button>
+        }
+      </div>
+    </form>
+  }
+
+  @if (reviews()) {
+    @if (myReview(); as mine) {
+      <article class="product-reviews__item product-reviews__item--mine">
+        <div class="product-reviews__item-header">
+          <span class="product-reviews__item-stars" [attr.aria-label]="'Rated ' + mine.rating + ' out of 5'">
+            @for (star of stars; track star) {
+              <mat-icon aria-hidden="true">{{ star <= mine.rating ? 'star' : 'star_border' }}</mat-icon>
+            }
+          </span>
+          <span class="product-reviews__item-label">Your review</span>
+          <span class="product-reviews__item-date">{{ formatDate(mine.updatedAt) }}</span>
+        </div>
+        @if (mine.comment) {
+          <p class="product-reviews__item-comment">{{ mine.comment }}</p>
+        }
+      </article>
+    }
+
+    @if (otherReviews().length > 0) {
+      <div class="product-reviews__list">
+        @for (review of otherReviews(); track review.id) {
+          <article class="product-reviews__item">
+            <div class="product-reviews__item-header">
+              <span class="product-reviews__item-stars" [attr.aria-label]="'Rated ' + review.rating + ' out of 5'">
+                @for (star of stars; track star) {
+                  <mat-icon aria-hidden="true">{{ star <= review.rating ? 'star' : 'star_border' }}</mat-icon>
+                }
+              </span>
+              <span class="product-reviews__item-date">{{ formatDate(review.createdAt) }}</span>
+            </div>
+            @if (review.comment) {
+              <p class="product-reviews__item-comment">{{ review.comment }}</p>
+            }
+          </article>
+        }
+      </div>
+    } @else if (!myReview()) {
+      <p class="product-reviews__empty">No reviews yet. Be the first to share your thoughts.</p>
+    }
+  } @else {
+    <p class="product-reviews__empty">Loading reviews…</p>
+  }
+</section>
