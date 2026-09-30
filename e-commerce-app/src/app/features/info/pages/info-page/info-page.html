@@ -1,0 +1,18 @@
+@if (content(); as page) {
+  <article class="info" aria-labelledby="info-heading">
+    <p class="info__eyebrow">{{ page.eyebrow }}</p>
+    <h1 id="info-heading" class="info__title">{{ page.title }}</h1>
+    <p class="info__intro">{{ page.intro }}</p>
+
+    @for (section of page.sections; track section.heading) {
+      <section class="info__section">
+        <h2 class="info__heading">{{ section.heading }}</h2>
+        @for (paragraph of section.paragraphs; track paragraph) {
+          <p class="info__text">{{ paragraph }}</p>
+        }
+      </section>
+    }
+
+    <a routerLink="/shop" class="info__link">Continue shopping</a>
+  </article>
+}
