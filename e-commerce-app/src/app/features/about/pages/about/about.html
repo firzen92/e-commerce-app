@@ -1,0 +1,19 @@
+<section class="about" aria-labelledby="about-heading">
+  <p class="about__eyebrow">About Aurelia</p>
+  <h1 id="about-heading" class="about__title">Considered furniture &amp; decor for everyday living.</h1>
+  <p class="about__lead">
+    Aurelia brings together furniture, lighting, decor, and textiles that make a home feel calm, personal, and
+    complete.
+  </p>
+
+  <div class="about__values">
+    @for (value of values; track value.title) {
+      <article class="about__value">
+        <h2 class="about__value-title">{{ value.title }}</h2>
+        <p class="about__value-text">{{ value.description }}</p>
+      </article>
+    }
+  </div>
+
+  <a routerLink="/shop" class="about__cta">Shop the collection</a>
+</section>

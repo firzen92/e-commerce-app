@@ -5,6 +5,9 @@ export interface ProductQuery {
   readonly categoryId?: string;
   readonly featuredOnly?: boolean;
   readonly searchTerm?: string;
+  /** 1-based page number; only applied together with `limit`. */
+  readonly page?: number;
+  readonly limit?: number;
 }
 
 export interface ProductCatalog {

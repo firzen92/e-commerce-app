@@ -26,6 +26,14 @@ export class HttpProductCatalogService implements ProductCatalog {
       params = params.set('searchTerm', query.searchTerm);
     }
 
+    if (query?.page) {
+      params = params.set('page', String(query.page));
+    }
+
+    if (query?.limit) {
+      params = params.set('limit', String(query.limit));
+    }
+
     return this.http
       .get<PaginatedApiResult<ProductApiModel>>(this.baseUrl, { params })
       .pipe(map((result) => result.data.map(mapProductApiModelToProduct)));

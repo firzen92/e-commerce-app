@@ -30,6 +30,14 @@ export const routes: Routes = [
   },
   {
     path: '',
+    loadChildren: () => import('./features/shop/shop.routes').then((m) => m.SHOP_ROUTES)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./features/about/about.routes').then((m) => m.ABOUT_ROUTES)
+  },
+  {
+    path: '',
     loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES)
   },
   {

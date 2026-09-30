@@ -24,6 +24,11 @@ export class MockProductCatalogService implements ProductCatalog {
       results = results.filter((product) => product.name.toLowerCase().includes(term));
     }
 
+    if (query?.limit) {
+      const start = ((query.page ?? 1) - 1) * query.limit;
+      results = results.slice(start, start + query.limit);
+    }
+
     return of(results);
   }
 

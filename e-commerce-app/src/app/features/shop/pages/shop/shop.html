@@ -1,0 +1,66 @@
+<section class="shop" aria-labelledby="shop-heading">
+  @if (categoryState(); as state) {
+    @if (state.kind === 'missing') {
+      <div class="shop__status">
+        <h1 id="shop-heading" class="shop__title">Category not found</h1>
+        <p class="shop__empty">We couldn't find that category.</p>
+        <a routerLink="/categories" class="shop__link">Browse all categories</a>
+      </div>
+    } @else {
+      <header class="shop__header">
+        <h1 id="shop-heading" class="shop__title">
+          {{ state.kind === 'found' ? state.category.name : 'All Products' }}
+        </h1>
+        @if (state.kind === 'found' && state.category.description) {
+          <p class="shop__description">{{ state.category.description }}</p>
+        }
+      </header>
+
+      <nav class="shop__filters" aria-label="Filter by category">
+        <a
+          routerLink="/shop"
+          class="shop__chip"
+          routerLinkActive="shop__chip--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          All
+        </a>
+        @for (category of categories(); track category.id) {
+          <a
+            [routerLink]="['/category', category.slug]"
+            class="shop__chip"
+            routerLinkActive="shop__chip--active"
+          >
+            {{ category.name }}
+          </a>
+        }
+      </nav>
+
+      @if (products().length > 0) {
+        <div class="shop__grid">
+          @for (product of products(); track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      } @else if (hasError()) {
+        <p class="shop__empty" role="alert">Something went wrong loading products.</p>
+      } @else if (isLoading()) {
+        <p class="shop__empty">Loading products…</p>
+      } @else {
+        <p class="shop__empty">No products here yet.</p>
+      }
+
+      @if (products().length > 0 && hasError()) {
+        <p class="shop__empty" role="alert">Something went wrong loading more products.</p>
+      }
+
+      @if (hasMore() || hasError()) {
+        <div class="shop__more">
+          <button type="button" class="shop__more-button" [disabled]="isLoading()" (click)="loadMore()">
+            {{ isLoading() ? 'Loading…' : hasError() ? 'Try again' : 'Load more' }}
+          </button>
+        </div>
+      }
+    }
+  }
+</section>
